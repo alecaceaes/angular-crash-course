@@ -4,17 +4,17 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'courses', 
     template: `         
-        <input (keyup.enter)="onKeyUp()" />
+    <input #email (keyup.enter)="onKeyUp(email.value)" />
     `
-    // <input (keyup)="onKeyUp($event)" />
+    // <input (keyup.enter)="onKeyUp($event)" />
 })
 
 export class CoursesComponent {   
-    onKeyUp() {
-        console.log("Enter was pressed.")
-    }
+    onKeyUp(email) {
+        console.log(email)
+    }  
 
     // onKeyUp($event) {
-    //     if ($event.keyCode == 13) console.log("Enter was pressed.")
-    // }    
+    //     console.log($event.target.value)
+    // }  
 }
