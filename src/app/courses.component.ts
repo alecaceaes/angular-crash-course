@@ -3,20 +3,18 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'courses', 
-    template: ` 
-        <div (click)="onDivClick()">    
-            <button (click)="onSave($event)">Save</button>
-        </div>
+    template: `         
+        <input (keyup.enter)="onKeyUp()" />
     `
+    // <input (keyup)="onKeyUp($event)" />
 })
 
 export class CoursesComponent {   
-    onDivClick() {
-        console.log("Div was clicked.")
+    onKeyUp() {
+        console.log("Enter was pressed.")
     }
 
-    onSave($event) {
-        $event.stopPropagation();
-        console.log("button was clicked.", $event)
-    }
+    // onKeyUp($event) {
+    //     if ($event.keyCode == 13) console.log("Enter was pressed.")
+    // }    
 }
