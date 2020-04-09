@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'favorite',
   templateUrl: './favorite.component.html',
+  // template: ''
   styleUrls: ['./favorite.component.css']
   // inputs: ['isFavorite']
 })
