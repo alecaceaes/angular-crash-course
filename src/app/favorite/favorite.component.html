@@ -1,5 +1,7 @@
 <i class="fa-star"
-  [class.fas]="isSelected"
-  [class.far]="!isSelected"
+  [ngClass]="{
+    'fas': isSelected,
+    'far': !isSelected
+  }"
   (click)="onClick()" >
 <i>
