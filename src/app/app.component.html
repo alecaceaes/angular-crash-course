@@ -1,9 +1,2 @@
-<button
-    [ngStyle]="{
-        'backgroundColor': canSave ? 'blue' : 'gray',
-        'color': canSave ? 'white' : 'black',
-        'fontWeight': canSave ? 'bold' : 'normal'        
-    }"
->
-Save  
-</button>
+<!-- <span *ngIf="task.assignee">{{ task.assignee.name }}</span> -->
+<span>{{ task.assignee?.name }}</span>
