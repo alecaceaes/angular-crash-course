@@ -1,3 +1,4 @@
+import { SignupFormComponent } from './signup-form/signup-form.component';
 import { SummaryPipe } from './summary.pipe';
 import { CoursesService } from './courses.service';
 import { CoursesComponent } from './courses.component';
@@ -15,6 +16,7 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 @NgModule({
   declarations: [
     AppComponent,
+    SignupFormComponent,
     CourseComponent,
     CoursesComponent,
     SummaryPipe,
