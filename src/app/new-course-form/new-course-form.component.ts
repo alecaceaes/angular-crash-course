@@ -1,4 +1,5 @@
-import { FormControl, FormArray, FormGroup } from '@angular/forms';
+import { EmailService } from './../email.service';
+import { FormControl, FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-course-form.component.css']
 })
 export class NewCourseFormComponent {
-  form = new FormGroup({
-    topics: new FormArray([])
-  })
+  form;
 
   addTopic(topic: HTMLOptionElement) {
     this.topics.push(new FormControl(topic.value));
@@ -23,5 +22,16 @@ export class NewCourseFormComponent {
 
   get topics() {
     return this.form.get('topics') as FormArray;
+  }
+
+  constructor(fb: FormBuilder) {
+    this.form = fb.group({
+      name: ['', Validators.required],
+      contact: fb.group({
+        email: [],
+        phone: []
+      }),
+      topics: fb.array([])
+    })
   }
 }
