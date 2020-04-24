@@ -1,3 +1,5 @@
+import { NotFoundError } from './../common/not-found-error';
+import { AppError } from './../common/app-error';
 import { PostService } from './../services/post.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -38,8 +40,8 @@ export class PostsComponent implements OnInit {
           this.posts.splice(0, 0, post);
           console.log(response);
         }, 
-        (error: Response) => {
-          if (error.status === 404) {
+        (error: AppError) => {
+          if (error instanceof NotFoundError) {
             // this.form.setErrors(error)
           }            
           else {
@@ -68,8 +70,8 @@ export class PostsComponent implements OnInit {
           let index = this.posts.indexOf(post);
           this.posts.splice(index, 1);
         }, 
-        (error: Response) => {
-          if (error.status === 404)
+        (error: AppError) => {
+          if (error instanceof NotFoundError)
             alert('This post has already been deleted.');
           else {
             alert('An unexpected error occured.');
