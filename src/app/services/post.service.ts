@@ -4,13 +4,13 @@ import { AppError } from './../common/app-error';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, throwError  } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  private url = "http://jsonplaceholder.typicode.com/posts";
+  private url = "https://my-json-server.typicode.com/typicode/demo/posts";
   
   constructor(private http: HttpClient) { }
 
@@ -22,7 +22,7 @@ export class PostService {
     return this.http.post<any>(this.url, JSON.stringify(post))
       .pipe(catchError((error: Response) => {
         if(error.status === 400)
-          return Observable.throw(new BadInput(error))
+          return throwError(new BadInput(error));
 
         return Observable.throw(new AppError(error));
       }));
@@ -34,9 +34,10 @@ export class PostService {
   
   deletePost(id) {
     return this.http.delete(this.url + "/" + id)
-      .pipe(catchError((error: Response) => {
+      .pipe(
+        catchError((error: Response) => {
         if (error.status === 404)
-          return Observable.throw(new NotFoundError());
+          return throwError(new NotFoundError());
 
         return Observable.throw(new AppError(error));      
       }));

@@ -65,7 +65,7 @@ export class PostsComponent implements OnInit {
   }
 
   deletePost(post) {
-    this.service.deletePost(post.id)
+    this.service.deletePost(345)
       .subscribe(
         response => {
           let index = this.posts.indexOf(post);
