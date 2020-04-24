@@ -1,3 +1,4 @@
+import { BadInput } from './../common/bad-input';
 import { NotFoundError } from './../common/not-found-error';
 import { AppError } from './../common/app-error';
 import { PostService } from './../services/post.service';
@@ -41,8 +42,8 @@ export class PostsComponent implements OnInit {
           console.log(response);
         }, 
         (error: AppError) => {
-          if (error instanceof NotFoundError) {
-            // this.form.setErrors(error)
+          if (error instanceof BadInput) {
+            // this.form.setErrors(error.originalError)
           }            
           else {
             alert('An unexpected error occured.');
