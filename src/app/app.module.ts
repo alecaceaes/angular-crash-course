@@ -1,3 +1,5 @@
+import { AppErrorHander } from './common/app-error-hander';
+import { AppError } from './common/app-error';
 import { PostService } from './services/post.service';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { SummaryPipe } from './summary.pipe';
@@ -6,7 +8,7 @@ import { CoursesComponent } from './courses.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CourseComponent } from './course/course.component';
@@ -39,7 +41,8 @@ import { PostsComponent } from './posts/posts.component';
   ],
   providers: [
     PostService,
-    CoursesService
+    CoursesService,
+    { provide: ErrorHandler, useClass: AppErrorHander }
   ],
   bootstrap: [AppComponent]
 })

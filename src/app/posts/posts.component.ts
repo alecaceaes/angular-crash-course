@@ -20,13 +20,8 @@ export class PostsComponent implements OnInit {
       this.service.getPosts()
       .subscribe(
         response => {
-        this.posts = response;
-        }, 
-        error => {
-          alert('An unexpected error occured.');
-          console.log(error);
-        }
-      );
+          this.posts = response;
+        });
   }
 
   createPost(input: HTMLInputElement) {
@@ -45,10 +40,7 @@ export class PostsComponent implements OnInit {
           if (error instanceof BadInput) {
             // this.form.setErrors(error.originalError)
           }            
-          else {
-            alert('An unexpected error occured.');
-            console.log(error);
-          }          
+          else throw error;   
         });
   }
 
@@ -57,10 +49,6 @@ export class PostsComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response)
-        }, 
-        error => {
-          alert('An unexpected error occured.');
-          console.log(error);
         });
   }
 
@@ -74,10 +62,7 @@ export class PostsComponent implements OnInit {
         (error: AppError) => {
           if (error instanceof NotFoundError)
             alert('This post has already been deleted.');
-          else {
-            alert('An unexpected error occured.');
-            console.log(error);
-          }          
+          else throw error;   
         });
   } 
 }
