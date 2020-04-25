@@ -18,11 +18,13 @@ export class DataService {
   }
 
   create(resource) {
-    return this.http.post<any>(this.url, JSON.stringify(resource))
-      .pipe(
-        map(response => response),
-        catchError(this.handerError)
-      );
+    return throwError(new AppError())
+
+    // return this.http.post<any>(this.url, JSON.stringify(resource))
+    //   .pipe(
+    //     map(response => response),
+    //     catchError(this.handerError)
+    //   );
   }
 
   update(resource) {
@@ -34,11 +36,13 @@ export class DataService {
   }
   
   delete(id) {
-    return this.http.delete(this.url + "/" + id)
-      .pipe(
-        map(response => response),
-        catchError(this.handerError)
-      );
+    return throwError(new AppError())
+    
+    // return this.http.delete(this.url + "/" + id)
+    //   .pipe(
+    //     map(response => response),
+    //     catchError(this.handerError)
+    //   );
   }
 
   private handerError(error: Response) {
