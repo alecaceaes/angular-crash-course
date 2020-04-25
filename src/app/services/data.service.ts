@@ -3,7 +3,7 @@ import { NotFoundError } from './../common/not-found-error';
 import { AppError } from './../common/app-error';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 import { Observable, throwError  } from 'rxjs';
 
 export class DataService {
@@ -18,13 +18,12 @@ export class DataService {
   }
 
   create(resource) {
-    return throwError(new AppError())
+    return this.http.post<any>(this.url, JSON.stringify(resource))
+      .pipe(
+        map(response => response),
 
-    // return this.http.post<any>(this.url, JSON.stringify(resource))
-    //   .pipe(
-    //     map(response => response),
-    //     catchError(this.handerError)
-    //   );
+        catchError(this.handerError)
+      );
   }
 
   update(resource) {
@@ -36,16 +35,15 @@ export class DataService {
   }
   
   delete(id) {
-    return throwError(new AppError())
-    
-    // return this.http.delete(this.url + "/" + id)
-    //   .pipe(
-    //     map(response => response),
-    //     catchError(this.handerError)
-    //   );
+    return this.http.delete(this.url + "/" + id)
+      .pipe(
+        map(response => response),
+        retry(3),
+        catchError(this.handerError))
+      .toPromise();
   }
 
-  private handerError(error: Response) {
+  private handerError(error : Response) {
     if(error.status === 400)
       return throwError(new BadInput(error));
 
