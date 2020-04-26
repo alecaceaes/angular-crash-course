@@ -1,3 +1,4 @@
+import { GithubFollowersService } from './services/github-followers.service';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { GithubProfileComponent } from './github-profile/github-profile.component';
@@ -74,6 +75,7 @@ import { GithubFollowersComponent } from './github-followers/github-followers.co
   providers: [
     PostService,
     CoursesService,
+    GithubFollowersService,
     { provide: ErrorHandler, useClass: AppErrorHander }
   ],
   bootstrap: [AppComponent]
