@@ -1,6 +1,7 @@
-import { Observable, combineLatest } from 'rxjs';
+import { combineLatest } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { GithubFollowersService } from './../services/github-followers.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -19,14 +20,14 @@ export class GithubFollowersComponent implements OnInit {
     combineLatest([
       this.route.paramMap,
       this.route.queryParamMap
-    ])
-    .subscribe(combined => {
+    ]).pipe(
+      switchMap(combined => {
       let id = combined[0].get('id');
       let page = combined[1].get('page');
 
-      // this.service.getAll({ id: id, page: page });
-      this.service.getAll()
-        .subscribe(followers => this.followers = followers);
-    });   
+       // this.service.getAll({ id: id, page: page });
+       return this.service.getAll()
+    }))
+    .subscribe(followers => this.followers = followers);       
   }
 }

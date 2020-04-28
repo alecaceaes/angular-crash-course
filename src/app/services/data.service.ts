@@ -10,10 +10,10 @@ export class DataService {
   constructor(private url: string, private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<any[]>(this.url)
+    return this.http.get<any>(this.url)
       .pipe(
-        map(response => response),
-        catchError(this.handerError)
+        map(response => response)
+        //catchError(this.handerError)
       );
   }
 
@@ -21,7 +21,6 @@ export class DataService {
     return this.http.post<any>(this.url, JSON.stringify(resource))
       .pipe(
         map(response => response),
-
         catchError(this.handerError)
       );
   }
