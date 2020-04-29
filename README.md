@@ -185,11 +185,79 @@ enabled DOM tree and style encapusation, scoped style elements
 ```
 
 ### [ngContent](https://github.com/alecaceaes/angular-crash-course/commit/657f4d80a1e09578befc6f04b25dde3e2428fa02)
-```
+```html
 <ng-content select=".heading"></ng-content>
 <ng-content select=".body"></ng-content>
 ```
 ### [ngContainer](https://github.com/alecaceaes/angular-crash-course/commit/db6e9f849e36e4d868aaccfdde0225058b6f9ce7)
-```
+```html
 <ng-container class="heading">Heading</ng-container>
 ```
+### ngIf
+for large element trees
+```html
+<div *ngIf="courses.length > 0; then coursesList else noCourses"></div>
+<ng-template #coursesList>List of Courses</ng-template>
+<ng-template #noCourses>No courses yet</ng-template>
+
+### Hidden Property
+for small element trees
+```html
+<div [hidden]="courses.length > 0">List of Courses</div>
+<div [hidden]="courses.length == 0">No courses yet</div>
+```
+### [ngSwitchCase](https://github.com/alecaceaes/angular-crash-course/commit/5fab751573c494f661dcf961ef63b6381f7896b8)
+
+### ngFor
+```
+<ul>
+  <li *ngFor="let course of courses; index as i">
+      {{ i }} - {{ course.name }} <span *ngIf="isEven">(EVEN)</span>
+  </li>
+</ul>
+```
+[list of exported values](https://angular.io/api/common/NgForOf)
+
+### [ngFor and Change Detection](https://github.com/alecaceaes/angular-crash-course/commit/30b7eaa3a42a20b3dfd8f491d49ef428f0794dd7)
+
+### [ngFor and trackBy](https://github.com/alecaceaes/angular-crash-course/commit/bda17b3eb6500d441e8e7745cd4cc60799a42209)
+instruct to use different mechanism to track objects, instead of tracking by identity, tracks it by id.
+
+### ngClass
+```
+<i class="fa-star"
+  ngClass]="{
+    'fas': isSelected,
+    'far': !isSelected
+  }">
+</i>
+```
+
+### ngStyle
+```
+<button
+    [ngStyle]="{
+        'backgroundColor': canSave ? 'blue' : 'gray',
+        'color': canSave ? 'white' : 'black',
+        'fontWeight': canSave ? 'bold' : 'normal'        
+    }"
+>Save</button>
+```
+
+### Safe Traversal Operator
+for complex objects with property value of null or undefined for certain period of time
+```
+<span>{{ task.assignee?.name }}</span> // if assignee is null or undefined, it will ignore this
+```
+
+### [Custom Directive](https://github.com/alecaceaes/angular-crash-course/commit/dbb437e2ab7700eb08097dc676a717624a444f91)
+Generate Directive
+```
+ng generate directive directive-name
+```
+import `HostListener` from `@angular/core`
+use as
+```
+@HostListener ('blur') onBlur() { };
+```
+
