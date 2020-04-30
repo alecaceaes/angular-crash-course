@@ -260,4 +260,91 @@ use as
 ```
 @HostListener ('blur') onBlur() { };
 ```
+## Template-driven Forms
 
+### [Building a Bootstrap Form](https://github.com/alecaceaes/angular-crash-course/commit/3f24ef505d5a6ff609e64a0b80ed66037a01d75f)
+
+### Types of Forms
+
+| Reactive  | Template-driven |
+| ------------- | ------------- |
+| More control on validation logic  | Good for simple forms  |
+| Good for complex forms  | Simple validation  |
+| Unit Testable | Less code |
+| | Easier to create |
+
+### ngModel
+```html
+<form>
+  <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input id="firstName" type="text" class="form-control">
+      <input ngModel name="firstName" #firstName="ngModel" id="firstName" type="text" class="form-control">
+  </div>    
+  <button class="btn btn-primary">Submit</button>
+</form>
+```
+
+### Adding Validation
+```html
+<input required ngModel name="firstName" #firstName="ngModel" id="firstName" type="text" class="form-control">
+<div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">First Name is required</div>
+```
+
+### Specific Validation
+```html
+<input required minlength="3" maxlength="10" pattern="banana" ngModel name="firstName" #firstName="ngModel" id="firstName" type="text" class="form-control">
+<div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+    <div *ngIf="firstName.errors.required">First name is required.</div>
+    <div *ngIf="firstName.errors.minlength">First name should be minimun {{ firstName.errors.minlength.requiredLength }} characters. </div>
+    <div *ngIf="firstName.errors.pattern">First name doesn't match the pattern.</div>
+</div>
+```
+
+### Styling Invalid Input Fields
+```css
+.form-control.ng-touched.ng-invalid {
+    border: 2px solid red;
+} 
+```
+
+### ngForm
+```html
+<form #f="ngForm" (ngSubmit)="submit(f)">
+```
+```typescript
+submit(f) {
+    console.log(f.value);
+  }
+```
+### ngModelGroup
+```
+<div ngModelGroup="contact" #contact="ngModelGroup">
+  <div *ngIf="!contact.valid">...</div>
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input required minlength="3" maxlength="10" pattern="banana" ngModel name="firstName" #firstName="ngModel" id="firstName" type="text" class="form-control">
+    <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+      <div *ngIf="firstName.errors.required">
+          First name is required.
+      </div>
+      <div *ngIf="firstName.errors.minlength">
+          First name should be minimun {{ firstName.errors.minlength.requiredLength }} characters.
+      </div>
+      <div *ngIf="firstName.errors.pattern">
+          First name doesn't match the pattern.
+      </div>
+    </div>
+  </div>
+</div>
+```
+### Disabling the Submit Button
+```html
+<button class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+```
+
+### [Working with Checkboxes](https://github.com/alecaceaes/angular-crash-course/commit/79a58db151ee5e590560439a7991c8af3223d837)
+
+## [Working with Dropdown List](https://github.com/alecaceaes/angular-crash-course/commit/e8eadccf7861d059f5f99933d82bc6bfe8af7c0d)
+
+## [Working with Radio Buttons](https://github.com/alecaceaes/angular-crash-course/commit/e354df52e78227ded29f2835e4626bae962fc8bd)
