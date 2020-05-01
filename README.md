@@ -167,7 +167,7 @@ on the subscriber
 <favorite [isFavorite]="post.isFavorite" (change)="onFavoriteChanged($event)"></favorite> 
 ```
 ### Aliasing Output Properties
-```
+```typescript
 @Output ('change') change = new Event Emitter();
 ```
 ### Templates
@@ -209,7 +209,7 @@ for small element trees
 ### [ngSwitchCase](https://github.com/alecaceaes/angular-crash-course/commit/5fab751573c494f661dcf961ef63b6381f7896b8)
 
 ### ngFor
-```
+```html
 <ul>
   <li *ngFor="let course of courses; index as i">
       {{ i }} - {{ course.name }} <span *ngIf="isEven">(EVEN)</span>
@@ -224,7 +224,7 @@ for small element trees
 instruct to use different mechanism to track objects, instead of tracking by identity, tracks it by id.
 
 ### ngClass
-```
+```html
 <i class="fa-star"
   ngClass]="{
     'fas': isSelected,
@@ -234,7 +234,7 @@ instruct to use different mechanism to track objects, instead of tracking by ide
 ```
 
 ### ngStyle
-```
+```html
 <button
     [ngStyle]="{
         'backgroundColor': canSave ? 'blue' : 'gray',
@@ -246,7 +246,7 @@ instruct to use different mechanism to track objects, instead of tracking by ide
 
 ### Safe Traversal Operator
 for complex objects with property value of null or undefined for certain period of time
-```
+```html
 <span>{{ task.assignee?.name }}</span> // if assignee is null or undefined, it will ignore this
 ```
 
@@ -257,7 +257,7 @@ ng generate directive directive-name
 ```
 import `HostListener` from `@angular/core`
 use as
-```
+```typescript
 @HostListener ('blur') onBlur() { };
 ```
 ## Template-driven Forms
@@ -318,7 +318,7 @@ submit(f) {
   }
 ```
 ### ngModelGroup
-```
+```html
 <div ngModelGroup="contact" #contact="ngModelGroup">
   <div *ngIf="!contact.valid">...</div>
   <div class="form-group">
@@ -345,6 +345,69 @@ submit(f) {
 
 ### [Working with Checkboxes](https://github.com/alecaceaes/angular-crash-course/commit/79a58db151ee5e590560439a7991c8af3223d837)
 
-## [Working with Dropdown List](https://github.com/alecaceaes/angular-crash-course/commit/e8eadccf7861d059f5f99933d82bc6bfe8af7c0d)
+### [Working with Dropdown List](https://github.com/alecaceaes/angular-crash-course/commit/e8eadccf7861d059f5f99933d82bc6bfe8af7c0d)
 
-## [Working with Radio Buttons](https://github.com/alecaceaes/angular-crash-course/commit/e354df52e78227ded29f2835e4626bae962fc8bd)
+### [Working with Radio Buttons](https://github.com/alecaceaes/angular-crash-course/commit/e354df52e78227ded29f2835e4626bae962fc8bd)
+
+## Reactive Forms
+
+### [Building a Bootstrap Form](https://github.com/alecaceaes/angular-crash-course/commit/0f722a237099bece8dd406374de8bd8b789f52e3)
+
+### [Creating Control Programatically](https://github.com/alecaceaes/angular-crash-course/commit/2558087a4dfda086680ddabadc59634ceb14e404)
+import in the `app.module` at the imports array the `ReactiveFormsModule` from `@angular/forms` 
+Create FormGroups and FormControl objects in code
+```typescript
+form = new FormGroup({
+    username: new FormControl(),
+    password: new FormControl()
+  })
+```
+associate them to input fields by applying `[formGroup]` directive to FormGroup object `form`
+```
+<form [formGroup]="form">
+```
+add the directive `formControlName` to the input fields
+```
+<input formControlName="username" id="username" type="text" class="form-control">
+```
+
+### [Adding Validation](https://github.com/alecaceaes/angular-crash-course/commit/a2559aefca65391c098f98bc83a8ca50f02d7f4a)
+import `Validators` from `@angular/forms`
+```typescript
+form = new FormGroup({
+  username: new FormControl('', Validators.required),
+  password: new FormControl('', Validators.required)
+});
+```
+add div to display validation errors
+```html
+<div *ngIf="form.get('username').touched && form.get('username').invalid" class="alert alert-danger">Username is required.</div>
+```
+
+### [Specific Validation Errors](https://github.com/alecaceaes/angular-crash-course/commit/0a644f181503b7b371640fb2beb562fd49a1ca1e)
+```typescript
+username: new FormControl('', [
+    Validators.required,
+    Validators.minLength(3)
+  ]),
+```
+```html
+<div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+  <div *ngIf="username.errors.required">Username is required.</div>
+  <div *ngIf="username.errors.minlength">Username should be minimum {{ username.errors.minlength.requiredLength }} characters.</div>
+</div>
+```
+
+### [Implementing Custom Validation](https://github.com/alecaceaes/angular-crash-course/commit/0dc580f747d3c77b5566b74b3cc83b71d217117f)
+### [Asynchronous Operations](https://github.com/alecaceaes/angular-crash-course/commit/beda6562d4ee28c58a27ad9ec47367001d095ba4)
+### [Asynchronous Validation](https://github.com/alecaceaes/angular-crash-course/commit/f6ed090c357e516dd28e49ebe15b9a1d35a2ae00)
+
+### Showing a Loader Image
+```html
+<div *ngIf="username.pending">Checking for uniqueness..</div>
+```
+
+### [Validation the Form Upon Submit](https://github.com/alecaceaes/angular-crash-course/commit/6062226621d1c3b2eea855b507b4dff7ad42ed81)
+### [Nested Form Groups](https://github.com/alecaceaes/angular-crash-course/commit/25a4de6f68ccee886a87abef9e6ed984ceeb367f)
+### [FormArray](https://github.com/alecaceaes/angular-crash-course/commit/cb7ba447464360d613ace759ed7e149a4705143f)
+### [FormBuilder](https://github.com/alecaceaes/angular-crash-course/commit/65fc565cd606a838eaba85d7165be229ec626a51)
